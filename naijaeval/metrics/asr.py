@@ -59,7 +59,7 @@ class WERMetric(BaseMetric):
     """
 
     name = "wer"
-    description = "Word Error Rate for ASR. Range: [0, ∞); lower is better."
+    description = "Word Error Rate for ASR. Range: [0, +inf); lower is better."
     higher_is_better = False
 
     def __init__(self, transforms: Any = None) -> None:
@@ -160,7 +160,7 @@ class CERMetric(BaseMetric):
     """
 
     name = "cer"
-    description = "Character Error Rate for ASR. Range: [0, ∞); lower is better."
+    description = "Character Error Rate for ASR. Range: [0, +inf); lower is better."
     higher_is_better = False
 
     def __init__(self, transforms: Any = None) -> None:
