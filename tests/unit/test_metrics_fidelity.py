@@ -121,7 +121,7 @@ class TestBLEUMetric:
 
     def test_metadata_present(self):
         result = self.metric.compute(["hello"], ["hello"])
-        assert "sacrebleu_signature" in result.metadata
+        assert "sacrebleu_version" in result.metadata
         assert result.metadata["n_samples"] == 1
 
     def test_sentence_scores_present(self):
