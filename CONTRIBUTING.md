@@ -8,7 +8,7 @@ Thank you for your interest in contributing. NaijaEval is built by and for the A
 
 ### 1. Find something to work on
 
-- Browse [open issues](https://github.com/ubuzugbe/naijaeval/issues) — look for `good first issue` and `help wanted` labels
+- Browse [open issues](https://github.com/Uchebuzz/naijaeval/issues) — look for `good first issue` and `help wanted` labels
 - Propose a new metric via the [metric proposal template](.github/ISSUE_TEMPLATE/metric_proposal.md)
 - Propose a new dataset via the [dataset proposal template](.github/ISSUE_TEMPLATE/dataset_proposal.md)
 - Fix a bug — check the `bug` label
@@ -122,4 +122,4 @@ Then import your metric in `naijaeval/metrics/__init__.py` to ensure it register
 
 ## Questions?
 
-Open a [GitHub Discussion](https://github.com/ubuzugbe/naijaeval/discussions) — we respond to all questions.
+Open a [GitHub Discussion](https://github.com/Uchebuzz/naijaeval/discussions) — we respond to all questions.

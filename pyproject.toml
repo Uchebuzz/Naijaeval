@@ -73,10 +73,10 @@ bertscore = [
 naijaeval = "naijaeval.cli.main:app"
 
 [project.urls]
-Homepage = "https://github.com/ubuzugbe/naijaeval"
+Homepage = "https://github.com/Uchebuzz/naijaeval"
 Documentation = "https://naijaeval.readthedocs.io"
-Repository = "https://github.com/ubuzugbe/naijaeval"
-"Bug Tracker" = "https://github.com/ubuzugbe/naijaeval/issues"
+Repository = "https://github.com/Uchebuzz/naijaeval"
+"Bug Tracker" = "https://github.com/Uchebuzz/naijaeval/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["naijaeval"]
