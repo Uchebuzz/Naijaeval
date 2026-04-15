@@ -1,0 +1,50 @@
+site_name: NaijaEval
+site_description: Evaluation toolkit for AI systems in African language contexts
+site_author: Uche Buzugbe
+repo_url: https://github.com/ubuzugbe/naijaeval
+repo_name: ubuzugbe/naijaeval
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: indigo
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - content.code.copy
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+
+nav:
+  - Home: index.md
+  - Getting Started: getting_started.md
+  - Metrics:
+      - Overview: metrics/overview.md
+      - Robustness: metrics/robustness.md
+      - Fidelity: metrics/fidelity.md
+      - ASR: metrics/asr.md
+      - Consistency: metrics/consistency.md
+  - Benchmarks:
+      - Overview: benchmarks/overview.md
+      - naija_mt_v1: benchmarks/naija_mt_v1.md
+  - Contributing:
+      - Overview: contributing/overview.md
+      - Adding metrics: contributing/adding_metrics.md
+      - Adding datasets: contributing/adding_datasets.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - toc:
+      permalink: true

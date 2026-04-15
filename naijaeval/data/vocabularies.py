@@ -1,0 +1,110 @@
+"""Built-in vocabulary lists for African language identification.
+
+These are curated, high-precision word sets — not exhaustive dictionaries.
+The design priority is specificity: words that appear **almost exclusively**
+in a given language so that false positives in code-switch detection are low.
+
+Users can extend or replace these lists by passing a ``vocab`` argument
+directly to :class:`~naijaeval.metrics.robustness.CodeSwitchRateMetric`.
+"""
+
+from __future__ import annotations
+
+# ---------------------------------------------------------------------------
+# Yoruba (yo) — Southwest Nigeria, Benin, Togo
+# Common function words and highly distinctive lexical items
+# ---------------------------------------------------------------------------
+YORUBA: set[str] = {
+    "mo", "ni", "ti", "se", "ati", "bi", "ko", "wa", "pe", "fun",
+    "ọ", "ẹ", "ló", "náà", "bẹ", "wọn", "naa", "ibe", "ibo", "tani",
+    "kini", "bawo", "nigba", "ojo", "ile", "omi", "orun", "aye", "ọrun",
+    "enia", "eniyan", "ọkọ", "aya", "omo", "baba", "iya", "egbon",
+    "aburo", "ọrẹ", "ọta", "ilu", "afonifoji", "igbo", "odo", "okun",
+    "ogun", "ife", "ibadan", "osun", "ekiti", "ondo", "oyo", "eko",
+    "eyin", "enu", "ori", "owo", "ese", "apa", "ara", "okan",
+}
+
+# ---------------------------------------------------------------------------
+# Igbo (ig) — Southeast Nigeria
+# ---------------------------------------------------------------------------
+IGBO: set[str] = {
+    "nke", "ka", "ha", "ndi", "oge", "ike", "isi", "obi", "chi",
+    "ulo", "akwa", "anya", "ọ", "ị", "ụ", "anyi", "onye", "ihe",
+    "enyi", "nne", "nna", "nwanne", "nwa", "nwoke", "nwanyi",
+    "obioma", "adaeze", "chukwu", "chineke", "mmadu", "ala", "oji",
+    "ofe", "ji", "ede", "anu", "mmiri", "oku", "osa", "ulo",
+    "onitsha", "enugu", "aba", "nnewi", "awka", "anambra", "imo",
+    "abia", "ebonyi", "nkanu", "agbo",
+}
+
+# ---------------------------------------------------------------------------
+# Hausa (ha) — Northern Nigeria, Niger, Sudan
+# ---------------------------------------------------------------------------
+HAUSA: set[str] = {
+    "da", "ya", "na", "ba", "amma", "mai", "yan", "shi", "ta", "su",
+    "suna", "yana", "tana", "kuma", "ai", "ko", "don", "cikin",
+    "daga", "zuwa", "akan", "tare", "idan", "lokaci", "yau", "gobe",
+    "jiya", "dare", "rana", "ruwa", "wuta", "gida", "daji", "kano",
+    "kaduna", "sokoto", "maiduguri", "zaria", "bauchi", "gusau",
+    "waziri", "sarki", "malam", "mallam", "alhaji", "hajiya",
+    "aiki", "kasuwa", "hanya", "motsi", "keke", "mota",
+}
+
+# ---------------------------------------------------------------------------
+# Nigerian Pidgin / Naija (pcm)
+# ---------------------------------------------------------------------------
+NIGERIAN_PIDGIN: set[str] = {
+    "dem", "dey", "comot", "wetin", "wahala", "abi", "sha", "jare",
+    "make", "wan", "gba", "done", "e", "na", "sabi", "chop",
+    "belleful", "yab", "gbege", "kpali", "waka", "yarn", "nack",
+    "lele", "omo", "shey", "ehen", "haba", "chai", "tufia",
+    "oyibo", "ajebutter", "agbero", "oga", "madam",
+    "naija", "9ja", "abeg", "biko", "no wahala", "no problem",
+}
+
+# ---------------------------------------------------------------------------
+# Swahili (sw) — East Africa
+# ---------------------------------------------------------------------------
+SWAHILI: set[str] = {
+    "na", "ya", "wa", "ni", "kwa", "za", "la", "si", "au", "hii",
+    "hiyo", "hilo", "ile", "hilo", "watu", "mtu", "mtoto", "watoto",
+    "nyumba", "chakula", "maji", "moto", "baridi", "leo", "kesho",
+    "jana", "sasa", "bado", "tayari", "ndio", "hapana", "tafadhali",
+    "asante", "karibu", "habari", "nzuri", "mbaya", "kubwa", "kidogo",
+    "pamoja", "bila", "mpaka", "nairobi", "dar", "kampala", "zanzibar",
+    "swahili", "kiswahili", "kenya", "tanzania", "uganda",
+}
+
+# ---------------------------------------------------------------------------
+# Zulu (zu) — South Africa
+# ---------------------------------------------------------------------------
+ZULU: set[str] = {
+    "ngo", "uma", "nge", "kwa", "nje", "aba", "ama", "uku", "ubu",
+    "isi", "imi", "ili", "unga", "yini", "nini", "obani", "kuphi",
+    "ngani", "ngoba", "kodwa", "nokho", "futhi", "bese", "noma",
+    "yebo", "cha", "sawubona", "sanibonani", "ngiyabonga", "uxolo",
+    "durban", "johannesburg", "soweto", "zulu", "isizulu", "xhosa",
+    "ubuntu", "umuntu", "ubuntu", "mzansi",
+}
+
+# ---------------------------------------------------------------------------
+# Amharic (am) — Ethiopia (romanised / transliterated common words)
+# ---------------------------------------------------------------------------
+AMHARIC: set[str] = {
+    "eshi", "awo", "yellem", "betam", "ameseginaleh", "tena",
+    "selam", "egziabher", "endet", "addis", "ababa", "ethiopia",
+    "habesha", "injera", "teff", "berbere",
+}
+
+# ---------------------------------------------------------------------------
+# Aggregated mapping used as the default vocab in CodeSwitchRateMetric
+# ---------------------------------------------------------------------------
+DEFAULT_VOCAB: dict[str, set[str]] = {
+    "yo": YORUBA,
+    "ig": IGBO,
+    "ha": HAUSA,
+    "pcm": NIGERIAN_PIDGIN,
+    "sw": SWAHILI,
+    "zu": ZULU,
+    "am": AMHARIC,
+}

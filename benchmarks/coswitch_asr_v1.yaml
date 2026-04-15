@@ -1,0 +1,58 @@
+# NaijaEval Benchmark: coswitch_asr_v1
+# Code-Switch ASR Robustness — Nigerian English / Pidgin
+# Version: 1.0.0
+# Date: 2026-04-15
+#
+# Description:
+#   Evaluates ASR systems for robustness on code-switched speech that
+#   mixes Nigerian English and Nigerian Pidgin (Naija / PCM).
+#
+#   Measures WER on standard Nigerian English, WER on code-switched
+#   utterances, and the resulting WER delta (accent robustness score).
+#   Also reports code-switch rate of the test set to contextualise
+#   results.
+#
+#   Uses the Common Voice Nigerian English subset as the standard
+#   reference and a manually curated code-switched test set.
+
+name: coswitch_asr_v1
+version: "1.0.0"
+description: >
+  Code-switch robustness benchmark for ASR systems on Nigerian English
+  and Nigerian Pidgin (Naija) mixed speech.
+
+language_pair:
+  primary: en-NG  # Nigerian English
+  secondary: pcm  # Nigerian Pidgin
+
+dataset:
+  standard:
+    name: common_voice
+    language: en
+    subset: nigerian_english
+    split: test
+    transcription_column: sentence
+  dialectal:
+    name: naija_coswitch_sample
+    split: test
+    transcription_column: transcription
+    coswitch_rate_column: coswitch_rate
+
+metrics:
+  - wer
+  - cer
+  - wer_delta
+  - code_switch_rate
+
+metric_config:
+  wer_delta:
+    dialect_name: "Nigerian Pidgin / Naija"
+  code_switch_rate:
+    vocab_languages: ["pcm", "yo", "ig", "ha"]
+
+tags:
+  - asr
+  - code-switching
+  - nigerian-pidgin
+  - nigerian-english
+  - robustness
