@@ -1,0 +1,65 @@
+# NaijaEval Benchmark: naija_mt_v1
+# Nigerian English → Yoruba Machine Translation
+# Version: 1.0.0
+# Date: 2026-04-15
+#
+# Description:
+#   Evaluates machine translation systems on Nigerian English to Yoruba
+#   translation with a focus on medical domain terminology preservation,
+#   source consistency, and hallucination detection.
+#
+#   The benchmark uses the MENYO-20k dataset (Adelani et al., 2021),
+#   the first large-scale multi-domain English-Yoruba MT corpus.
+#
+# Citation:
+#   @inproceedings{adelani-etal-2021-menyo,
+#     title = "MENYO-20k: A Multi-Domain English-Yorùbá Corpus",
+#     author = "Adelani, David Ifeoluwa et al.",
+#     booktitle = "Proceedings of the 2nd AfricaNLP Workshop",
+#     year = "2021",
+#   }
+
+name: naija_mt_v1
+version: "1.0.0"
+description: >
+  Nigerian English to Yoruba MT evaluation covering translation fidelity,
+  medical terminology preservation, and source consistency.
+
+language_pair:
+  source: en
+  target: yo
+
+dataset:
+  name: menyo20k
+  split: test
+  source_column: source
+  target_column: target
+
+metrics:
+  - bleu
+  - chrf
+  - terminology_preservation_rate
+  - consistency_score
+  - hallucination_rate
+
+metric_config:
+  terminology_preservation_rate:
+    domain: medical
+  consistency_score:
+    ngram_order: 2
+
+expected_baselines:
+  # Indicative scores from literature — models may vary
+  # Helsinki-NLP/opus-mt-en-yo (MarianMT)
+  opus_mt_en_yo:
+    bleu: 18.4
+    chrf: 42.1
+    terminology_preservation_rate: 0.71
+    hallucination_rate: 0.14
+
+tags:
+  - yoruba
+  - nigerian-english
+  - low-resource
+  - medical
+  - translation
