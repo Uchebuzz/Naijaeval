@@ -246,7 +246,7 @@ class BLEUMetric(BaseMetric):
             metadata={
                 "n_samples": len(predictions),
                 "tokenize": self.tokenize,
-                "sacrebleu_signature": str(corpus_score.get_signature()),
+                "sacrebleu_version": sacrebleu.__version__,
             },
         )
 
