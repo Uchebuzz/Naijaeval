@@ -88,3 +88,6 @@ results/
 
 # HuggingFace cache
 .cache/huggingface/
+
+# Claude Code
+.claude/
