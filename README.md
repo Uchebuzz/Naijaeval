@@ -2,7 +2,7 @@
 
 **Evaluation infrastructure for AI systems that mainstream benchmarks can't assess — built for African languages, code-switching, and dialectal robustness.**
 
-[![CI](https://github.com/ubuzugbe/naijaeval/actions/workflows/ci.yml/badge.svg)](https://github.com/ubuzugbe/naijaeval/actions)
+[![CI](https://github.com/Uchebuzz/naijaeval/actions/workflows/ci.yml/badge.svg)](https://github.com/Uchebuzz/naijaeval/actions)
 [![PyPI](https://img.shields.io/pypi/v/naijaeval.svg)](https://pypi.org/project/naijaeval/)
 [![Python](https://img.shields.io/pypi/pyversions/naijaeval.svg)](https://pypi.org/project/naijaeval/)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
@@ -224,7 +224,7 @@ If you use NaijaEval in your research, please cite:
   author    = {Buzugbe, Uche},
   title     = {{NaijaEval}: Evaluation toolkit for AI systems in African language contexts},
   year      = {2026},
-  url       = {https://github.com/ubuzugbe/naijaeval},
+  url       = {https://github.com/Uchebuzz/naijaeval},
   version   = {0.1.0},
 }
 ```
@@ -244,7 +244,7 @@ The fastest way to make a meaningful contribution is to:
 
 ## Community
 
-- [GitHub Discussions](https://github.com/ubuzugbe/naijaeval/discussions) — questions, ideas, benchmark results
+- [GitHub Discussions](https://github.com/Uchebuzz/naijaeval/discussions) — questions, ideas, benchmark results
 - [AfricaNLP Workshop](https://africanlp.github.io/) — the primary research community this toolkit serves
 - [Masakhane](https://www.masakhane.io/) — African NLP community
 
