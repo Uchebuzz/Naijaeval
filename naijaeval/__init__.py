@@ -7,17 +7,17 @@ conversational AI — with a focus on African languages, Nigerian English,
 code-switching, and dialectal variation.
 """
 
-from naijaeval.registry import (
-    MetricRegistry,
-    DatasetRegistry,
-    get_metric,
-    list_metrics,
-    register_metric,
-    get_dataset,
-    list_datasets,
-    register_dataset,
-)
 from naijaeval.metrics.base import BaseMetric, MetricResult
+from naijaeval.registry import (
+    DatasetRegistry,
+    MetricRegistry,
+    get_dataset,
+    get_metric,
+    list_datasets,
+    list_metrics,
+    register_dataset,
+    register_metric,
+)
 
 __version__ = "0.1.0"
 __author__ = "Uche Buzugbe"

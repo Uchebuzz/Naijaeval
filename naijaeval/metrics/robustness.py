@@ -110,7 +110,9 @@ class CodeSwitchRateMetric(BaseMetric):
             tokens = tokenize(text)
             if len(tokens) < 2:
                 per_sample.append(0.0)
-                per_sample_details.append({"tokens": len(tokens), "switches": 0, "rate": 0.0})
+                per_sample_details.append(
+                    {"tokens": len(tokens), "switches": 0, "rate": 0.0}
+                )
                 continue
 
             labeled = segment_by_language(text, self.vocab, self.default_lang)
@@ -123,14 +125,16 @@ class CodeSwitchRateMetric(BaseMetric):
                 lang_counts[lang] = lang_counts.get(lang, 0) + 1
 
             per_sample.append(rate)
-            per_sample_details.append({
-                "tokens": len(labeled),
-                "switches": switches,
-                "rate": round(rate, 4),
-                "language_distribution": {
-                    k: round(v / len(labeled), 3) for k, v in lang_counts.items()
-                },
-            })
+            per_sample_details.append(
+                {
+                    "tokens": len(labeled),
+                    "switches": switches,
+                    "rate": round(rate, 4),
+                    "language_distribution": {
+                        k: round(v / len(labeled), 3) for k, v in lang_counts.items()
+                    },
+                }
+            )
 
         avg_rate = float(np.mean(per_sample))
 
@@ -275,7 +279,8 @@ class DialectalRobustnessMetric(BaseMetric):
                 "absolute_delta": round(delta, 4),
                 "relative_change_pct": round(relative_pct, 2),
                 "interpretation": (
-                    "no degradation" if abs(delta) < 0.01
+                    "no degradation"
+                    if abs(delta) < 0.01
                     else ("degradation" if delta < 0 else "improvement")
                 ),
             },

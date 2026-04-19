@@ -51,5 +51,8 @@ def save_json(
         The resolved output path.
     """
     out = Path(path)
-    out.write_text(to_json(results, model=model, benchmark=benchmark, metadata=metadata), encoding="utf-8")
+    out.write_text(
+        to_json(results, model=model, benchmark=benchmark, metadata=metadata),
+        encoding="utf-8",
+    )
     return out

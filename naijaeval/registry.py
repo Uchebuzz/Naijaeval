@@ -26,7 +26,7 @@ Usage — registering a custom dataset::
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Callable, Type
+from typing import TYPE_CHECKING, Any, Callable
 
 if TYPE_CHECKING:
     from naijaeval.metrics.base import BaseMetric
@@ -35,10 +35,10 @@ if TYPE_CHECKING:
 class MetricRegistry:
     """Registry mapping metric names to BaseMetric subclasses."""
 
-    _registry: dict[str, Type[BaseMetric]] = {}
+    _registry: dict[str, type[BaseMetric]] = {}
 
     @classmethod
-    def register(cls, name: str, metric_cls: Type[BaseMetric]) -> None:
+    def register(cls, name: str, metric_cls: type[BaseMetric]) -> None:
         if name in cls._registry:
             raise ValueError(
                 f"Metric '{name}' is already registered. "
@@ -47,12 +47,10 @@ class MetricRegistry:
         cls._registry[name] = metric_cls
 
     @classmethod
-    def get(cls, name: str) -> Type[BaseMetric]:
+    def get(cls, name: str) -> type[BaseMetric]:
         if name not in cls._registry:
             available = ", ".join(sorted(cls._registry.keys()))
-            raise KeyError(
-                f"Metric '{name}' not found. Available metrics: {available}"
-            )
+            raise KeyError(f"Metric '{name}' not found. Available metrics: {available}")
         return cls._registry[name]
 
     @classmethod
@@ -60,7 +58,7 @@ class MetricRegistry:
         return sorted(cls._registry.keys())
 
     @classmethod
-    def all(cls) -> dict[str, Type[BaseMetric]]:
+    def all(cls) -> dict[str, type[BaseMetric]]:
         return dict(cls._registry)
 
 
@@ -92,7 +90,7 @@ class DatasetRegistry:
 def register_metric(name: str):
     """Class decorator to register a metric under ``name``."""
 
-    def decorator(cls: Type[BaseMetric]) -> Type[BaseMetric]:
+    def decorator(cls: type[BaseMetric]) -> type[BaseMetric]:
         MetricRegistry.register(name, cls)
         return cls
 

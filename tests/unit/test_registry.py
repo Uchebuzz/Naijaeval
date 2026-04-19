@@ -61,12 +61,15 @@ class TestMetricRegistry:
         @register_metric("__test_dup__")
         class M1(BaseMetric):
             name = "__test_dup__"
+
             def compute(self, p, r, **kw): ...
 
         with pytest.raises(ValueError, match="already registered"):
+
             @register_metric("__test_dup__")
             class M2(BaseMetric):
                 name = "__test_dup__"
+
                 def compute(self, p, r, **kw): ...
 
         del MetricRegistry._registry["__test_dup__"]
@@ -75,7 +78,13 @@ class TestMetricRegistry:
 class TestDatasetRegistry:
     def test_core_datasets_registered(self):
         names = list_datasets()
-        expected = {"menyo20k", "fleurs_yo", "fleurs_ha", "fleurs_sw", "naija_mt_sample"}
+        expected = {
+            "menyo20k",
+            "fleurs_yo",
+            "fleurs_ha",
+            "fleurs_sw",
+            "naija_mt_sample",
+        }
         assert expected.issubset(set(names))
 
     def test_register_custom_dataset(self):

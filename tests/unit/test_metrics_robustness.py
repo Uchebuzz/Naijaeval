@@ -116,6 +116,7 @@ class TestDialectalRobustnessMetric:
         result = self.metric.from_scores(baseline, dialectal)
         # delta = mean([0.70, 0.72, 0.68]) - mean([0.80, 0.82, 0.78])
         import numpy as np
+
         expected_delta = float(np.mean(dialectal) - np.mean(baseline))
         assert result.score == pytest.approx(expected_delta, abs=1e-4)
         assert result.score < 0  # negative = degradation

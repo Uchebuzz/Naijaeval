@@ -2,7 +2,10 @@
 
 import pytest
 
-from naijaeval.metrics.consistency import ConsistencyScoreMetric, HallucinationRateMetric
+from naijaeval.metrics.consistency import (
+    ConsistencyScoreMetric,
+    HallucinationRateMetric,
+)
 
 
 class TestHallucinationRateMetric:

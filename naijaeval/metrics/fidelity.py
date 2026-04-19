@@ -16,7 +16,6 @@ Metrics
 
 from __future__ import annotations
 
-import re
 from typing import Any
 
 from naijaeval.data.domain_terms import DOMAIN_TERMS
@@ -167,13 +166,10 @@ class TerminologyPreservationMetric(BaseMetric):
             details={
                 "per_sample_rates": [round(r, 4) for r in per_sample_rates],
                 "per_term_recall": {
-                    term: round(count / n, 4)
-                    for term, count in term_hit_counts.items()
+                    term: round(count / n, 4) for term, count in term_hit_counts.items()
                 },
                 "missing_terms": [
-                    term
-                    for term, count in term_hit_counts.items()
-                    if count / n < 0.5
+                    term for term, count in term_hit_counts.items() if count / n < 0.5
                 ],
             },
             metadata={
@@ -216,8 +212,8 @@ class BLEUMetric(BaseMetric):
     ) -> MetricResult:
         try:
             import sacrebleu
-        except ImportError:
-            raise ImportError("sacrebleu is required: pip install sacrebleu")
+        except ImportError as err:
+            raise ImportError("sacrebleu is required: pip install sacrebleu") from err
 
         if len(predictions) != len(references):
             raise ValueError(
@@ -293,8 +289,8 @@ class chrFMetric(BaseMetric):
     ) -> MetricResult:
         try:
             import sacrebleu
-        except ImportError:
-            raise ImportError("sacrebleu is required: pip install sacrebleu")
+        except ImportError as err:
+            raise ImportError("sacrebleu is required: pip install sacrebleu") from err
 
         if len(predictions) != len(references):
             raise ValueError(

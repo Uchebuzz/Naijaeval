@@ -36,6 +36,7 @@ class TestNormalizeText:
     def test_nfc_normalization(self):
         # NFC and NFD representations of the same character should normalize to same
         import unicodedata
+
         nfd = unicodedata.normalize("NFD", "ẹ")
         nfc = unicodedata.normalize("NFC", "ẹ")
         assert normalize_text(nfd) == normalize_text(nfc)
@@ -71,7 +72,9 @@ class TestExtractCapitalizedNgrams:
         assert "Lagos" in result
 
     def test_multi_word_entity(self):
-        result = extract_capitalized_ngrams("The Lagos General Hospital treated patients")
+        result = extract_capitalized_ngrams(
+            "The Lagos General Hospital treated patients"
+        )
         assert "Lagos General Hospital" in result
 
     def test_all_caps(self):
@@ -103,7 +106,9 @@ class TestSegmentByLanguage:
         }
 
     def test_yoruba_tokens_tagged(self):
-        result = segment_by_language("I know mo pe the man ni serious", self.vocab, "en")
+        result = segment_by_language(
+            "I know mo pe the man ni serious", self.vocab, "en"
+        )
         lang_map = dict(result)
         assert lang_map.get("mo") == "yo"
         assert lang_map.get("pe") == "yo"

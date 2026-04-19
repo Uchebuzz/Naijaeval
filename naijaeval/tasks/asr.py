@@ -71,7 +71,9 @@ class ASRTask(BaseTask):
         if dialectal_predictions is not None and dialectal_references is not None:
             from naijaeval.metrics.asr import WERDeltaMetric
 
-            dia_wer_result = self._wer.compute(dialectal_predictions, dialectal_references)
+            dia_wer_result = self._wer.compute(
+                dialectal_predictions, dialectal_references
+            )
             results[f"wer_{dialect_name}"] = dia_wer_result
 
             std_per_sample = results["wer"].details.get("per_sample_wer", [])

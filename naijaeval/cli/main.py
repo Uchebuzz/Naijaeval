@@ -13,9 +13,7 @@ naijaeval report              -- render a JSON result file as HTML
 from __future__ import annotations
 
 import json
-import sys
 from pathlib import Path
-from typing import Optional
 
 import typer
 from rich import print as rprint
@@ -54,11 +52,14 @@ def list_metrics_cmd():
         rprint("[yellow]No metrics registered.[/yellow]")
         return
 
-    table = Table(title="Registered Metrics", show_header=True, header_style="bold blue")
+    table = Table(
+        title="Registered Metrics", show_header=True, header_style="bold blue"
+    )
     table.add_column("Name", style="cyan")
     table.add_column("Description")
 
     from naijaeval.registry import MetricRegistry
+
     for name in names:
         cls = MetricRegistry.get(name)
         instance = cls()
@@ -78,11 +79,14 @@ def list_datasets_cmd():
         rprint("[yellow]No datasets registered.[/yellow]")
         return
 
-    table = Table(title="Registered Datasets", show_header=True, header_style="bold blue")
+    table = Table(
+        title="Registered Datasets", show_header=True, header_style="bold blue"
+    )
     table.add_column("Name", style="cyan")
     table.add_column("Loader function")
 
     from naijaeval.registry import DatasetRegistry
+
     for name in names:
         fn = DatasetRegistry.get(name)
         table.add_row(name, fn.__name__)
@@ -103,7 +107,9 @@ def list_benchmarks_cmd():
         rprint("[yellow]No benchmark files found in benchmarks/.[/yellow]")
         return
 
-    table = Table(title="Available Benchmarks", show_header=True, header_style="bold blue")
+    table = Table(
+        title="Available Benchmarks", show_header=True, header_style="bold blue"
+    )
     table.add_column("File", style="cyan")
     table.add_column("Path")
 
@@ -120,12 +126,24 @@ def list_benchmarks_cmd():
 
 @app.command("run")
 def run_cmd(
-    benchmark: str = typer.Option(..., "--benchmark", "-b", help="Benchmark name (matches benchmarks/<name>.yaml)"),
-    predictions: Optional[Path] = typer.Option(None, "--predictions", "-p", help="Path to predictions file (one per line)."),
-    references: Optional[Path] = typer.Option(None, "--references", "-r", help="Path to references file (one per line)."),
-    sources: Optional[Path] = typer.Option(None, "--sources", "-s", help="Path to source texts file (one per line)."),
-    output: Optional[Path] = typer.Option(None, "--output", "-o", help="Output JSON path."),
-    model: str = typer.Option("unknown", "--model", "-m", help="Model identifier for the report."),
+    benchmark: str = typer.Option(
+        ..., "--benchmark", "-b", help="Benchmark name (matches benchmarks/<name>.yaml)"
+    ),
+    predictions: Path | None = typer.Option(
+        None, "--predictions", "-p", help="Path to predictions file (one per line)."
+    ),
+    references: Path | None = typer.Option(
+        None, "--references", "-r", help="Path to references file (one per line)."
+    ),
+    sources: Path | None = typer.Option(
+        None, "--sources", "-s", help="Path to source texts file (one per line)."
+    ),
+    output: Path | None = typer.Option(
+        None, "--output", "-o", help="Output JSON path."
+    ),
+    model: str = typer.Option(
+        "unknown", "--model", "-m", help="Model identifier for the report."
+    ),
 ):
     """Run a benchmark and output results.
 
@@ -155,14 +173,16 @@ def run_cmd(
     # Load data
     preds = _load_lines(predictions) if predictions else None
     refs = _load_lines(references) if references else None
-    srcs = _load_lines(sources) if sources else None
+    _load_lines(sources) if sources else None
 
     if preds is None or refs is None:
         rprint("[red]--predictions and --references are required for 'run'.[/red]")
         raise typer.Exit(1)
 
     if len(preds) != len(refs):
-        rprint(f"[red]Mismatch: {len(preds)} predictions vs {len(refs)} references.[/red]")
+        rprint(
+            f"[red]Mismatch: {len(preds)} predictions vs {len(refs)} references.[/red]"
+        )
         raise typer.Exit(1)
 
     # Run metrics
@@ -179,7 +199,9 @@ def run_cmd(
                 result = metric.compute(preds, refs)
                 results[metric_name] = result
             except Exception as exc:
-                rprint(f"[yellow]Warning: metric '{metric_name}' failed: {exc}[/yellow]")
+                rprint(
+                    f"[yellow]Warning: metric '{metric_name}' failed: {exc}[/yellow]"
+                )
 
     # Print summary table
     table = Table(title="Results", show_header=True, header_style="bold green")
@@ -194,6 +216,7 @@ def run_cmd(
     # Save JSON
     if output:
         from naijaeval.report.json_report import save_json
+
         save_json(results, output, model=model, benchmark=benchmark)
         rprint(f"\n[green]Results saved to {output}[/green]")
 
@@ -207,7 +230,9 @@ def run_cmd(
 
 @app.command("compare")
 def compare_cmd(
-    result_files: list[Path] = typer.Argument(..., help="Two or more JSON result files to compare."),
+    result_files: list[Path] = typer.Argument(
+        ..., help="Two or more JSON result files to compare."
+    ),
 ):
     """Compare results from multiple evaluation runs side by side.
 
@@ -256,7 +281,9 @@ def compare_cmd(
 def report_cmd(
     input: Path = typer.Option(..., "--input", "-i", help="JSON results file."),
     output: Path = typer.Option(..., "--output", "-o", help="Output HTML path."),
-    fmt: str = typer.Option("html", "--format", "-f", help="Output format: html or json."),
+    fmt: str = typer.Option(
+        "html", "--format", "-f", help="Output format: html or json."
+    ),
 ):
     """Render a JSON results file as an HTML report.
 
@@ -330,8 +357,8 @@ def _resolve_benchmark(name: str) -> Path | None:
 def _load_yaml(path: Path) -> dict:
     try:
         import yaml
-    except ImportError:
-        raise ImportError("pyyaml is required: pip install pyyaml")
+    except ImportError as err:
+        raise ImportError("pyyaml is required: pip install pyyaml") from err
     with open(path, encoding="utf-8") as f:
         return yaml.safe_load(f)
 

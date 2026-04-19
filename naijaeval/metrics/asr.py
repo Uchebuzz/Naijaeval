@@ -24,11 +24,12 @@ from naijaeval.registry import register_metric
 def _require_jiwer() -> Any:
     try:
         import jiwer
+
         return jiwer
-    except ImportError:
+    except ImportError as err:
         raise ImportError(
             "jiwer is required for ASR metrics: pip install jiwer"
-        )
+        ) from err
 
 
 @register_metric("wer")
@@ -68,13 +69,15 @@ class WERMetric(BaseMetric):
     def _get_transforms(self, jiwer: Any) -> Any:
         if self.transforms is not None:
             return self.transforms
-        return jiwer.Compose([
-            jiwer.ToLowerCase(),
-            jiwer.RemoveMultipleSpaces(),
-            jiwer.Strip(),
-            jiwer.RemovePunctuation(),
-            jiwer.ReduceToListOfListOfWords(),
-        ])
+        return jiwer.Compose(
+            [
+                jiwer.ToLowerCase(),
+                jiwer.RemoveMultipleSpaces(),
+                jiwer.Strip(),
+                jiwer.RemovePunctuation(),
+                jiwer.ReduceToListOfListOfWords(),
+            ]
+        )
 
     def compute(
         self,
@@ -169,12 +172,14 @@ class CERMetric(BaseMetric):
     def _get_transforms(self, jiwer: Any) -> Any:
         if self.transforms is not None:
             return self.transforms
-        return jiwer.Compose([
-            jiwer.ToLowerCase(),
-            jiwer.RemoveMultipleSpaces(),
-            jiwer.Strip(),
-            jiwer.ReduceToListOfListOfChars(),
-        ])
+        return jiwer.Compose(
+            [
+                jiwer.ToLowerCase(),
+                jiwer.RemoveMultipleSpaces(),
+                jiwer.Strip(),
+                jiwer.ReduceToListOfListOfChars(),
+            ]
+        )
 
     def compute(
         self,

@@ -4,10 +4,16 @@ from __future__ import annotations
 
 from typing import Any
 
-from naijaeval.metrics.asr import WERMetric
 from naijaeval.metrics.base import MetricResult
-from naijaeval.metrics.consistency import ConsistencyScoreMetric, HallucinationRateMetric
-from naijaeval.metrics.fidelity import BLEUMetric, TerminologyPreservationMetric, chrFMetric
+from naijaeval.metrics.consistency import (
+    ConsistencyScoreMetric,
+    HallucinationRateMetric,
+)
+from naijaeval.metrics.fidelity import (
+    BLEUMetric,
+    TerminologyPreservationMetric,
+    chrFMetric,
+)
 from naijaeval.tasks.base import BaseTask
 
 
