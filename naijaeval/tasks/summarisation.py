@@ -5,7 +5,10 @@ from __future__ import annotations
 from typing import Any
 
 from naijaeval.metrics.base import MetricResult
-from naijaeval.metrics.consistency import ConsistencyScoreMetric, HallucinationRateMetric
+from naijaeval.metrics.consistency import (
+    ConsistencyScoreMetric,
+    HallucinationRateMetric,
+)
 from naijaeval.metrics.fidelity import TerminologyPreservationMetric
 from naijaeval.tasks.base import BaseTask
 

@@ -137,13 +137,15 @@ class HallucinationRateMetric(BaseMetric):
 
             if not candidates:
                 per_sample_rates.append(0.0)
-                per_sample_details.append({
-                    "n_candidates": 0,
-                    "n_hallucinated": 0,
-                    "rate": 0.0,
-                    "hallucinated": [],
-                    "supported": [],
-                })
+                per_sample_details.append(
+                    {
+                        "n_candidates": 0,
+                        "n_hallucinated": 0,
+                        "rate": 0.0,
+                        "hallucinated": [],
+                        "supported": [],
+                    }
+                )
                 continue
 
             hallucinated = [c for c in candidates if not self._is_supported(c, source)]
@@ -152,13 +154,15 @@ class HallucinationRateMetric(BaseMetric):
 
             per_sample_rates.append(rate)
             all_hallucinated.extend(hallucinated)
-            per_sample_details.append({
-                "n_candidates": len(candidates),
-                "n_hallucinated": len(hallucinated),
-                "rate": round(rate, 4),
-                "hallucinated": sorted(hallucinated),
-                "supported": sorted(supported),
-            })
+            per_sample_details.append(
+                {
+                    "n_candidates": len(candidates),
+                    "n_hallucinated": len(hallucinated),
+                    "rate": round(rate, 4),
+                    "hallucinated": sorted(hallucinated),
+                    "supported": sorted(supported),
+                }
+            )
 
         mean_rate = float(np.mean(per_sample_rates))
 
@@ -260,7 +264,9 @@ class ConsistencyScoreMetric(BaseMetric):
                 continue
 
             overlap = sum(
-                min(pred_ngrams[ng], src_ngrams[ng]) for ng in pred_ngrams if ng in src_ngrams
+                min(pred_ngrams[ng], src_ngrams[ng])
+                for ng in pred_ngrams
+                if ng in src_ngrams
             )
             total_pred = sum(pred_ngrams.values())
             score = overlap / total_pred if total_pred > 0 else 0.0
@@ -284,7 +290,4 @@ class ConsistencyScoreMetric(BaseMetric):
 def _top_n(items: list[str], n: int = 10) -> list[dict[str, Any]]:
     """Return the top-n most frequent items with their counts."""
     counts = Counter(items)
-    return [
-        {"term": term, "count": count}
-        for term, count in counts.most_common(n)
-    ]
+    return [{"term": term, "count": count} for term, count in counts.most_common(n)]

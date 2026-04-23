@@ -84,7 +84,9 @@ def to_html(
             f"<td>{html.escape(result.description if hasattr(result, 'description') else '')}</td></tr>"
         )
         if result.details:
-            detail_json = html.escape(json.dumps(result.details, indent=2, ensure_ascii=False))
+            detail_json = html.escape(
+                json.dumps(result.details, indent=2, ensure_ascii=False)
+            )
             detail_blocks.append(
                 f"<details class='details'><summary>{html.escape(name)} — details</summary>"
                 f"<pre>{detail_json}</pre></details>"
@@ -141,5 +143,8 @@ def save_html(
         The resolved output path.
     """
     out = Path(path)
-    out.write_text(to_html(results, model=model, benchmark=benchmark, metadata=metadata), encoding="utf-8")
+    out.write_text(
+        to_html(results, model=model, benchmark=benchmark, metadata=metadata),
+        encoding="utf-8",
+    )
     return out
