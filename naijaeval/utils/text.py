@@ -5,7 +5,6 @@ from __future__ import annotations
 import re
 import unicodedata
 from collections import Counter
-from typing import Iterator
 
 
 def tokenize(text: str, lowercase: bool = False) -> list[str]:
@@ -46,20 +45,72 @@ def extract_ngrams(tokens: list[str], n: int) -> Counter[tuple[str, ...]]:
     return Counter(grams)
 
 
-_COMMON_WORDS: frozenset[str] = frozenset({
-    "the", "a", "an", "in", "on", "at", "to", "for", "of", "and", "but",
-    "or", "so", "yet", "it", "its", "this", "that", "these", "those",
-    "is", "was", "are", "were", "be", "been", "being", "have", "has",
-    "had", "do", "does", "did", "will", "would", "could", "should",
-    "may", "might", "shall", "can", "not", "no", "nor", "with", "from",
-    "by", "as", "if", "then", "than", "when", "where", "which", "who",
-    "also", "just", "about", "i",
-})
+_COMMON_WORDS: frozenset[str] = frozenset(
+    {
+        "the",
+        "a",
+        "an",
+        "in",
+        "on",
+        "at",
+        "to",
+        "for",
+        "of",
+        "and",
+        "but",
+        "or",
+        "so",
+        "yet",
+        "it",
+        "its",
+        "this",
+        "that",
+        "these",
+        "those",
+        "is",
+        "was",
+        "are",
+        "were",
+        "be",
+        "been",
+        "being",
+        "have",
+        "has",
+        "had",
+        "do",
+        "does",
+        "did",
+        "will",
+        "would",
+        "could",
+        "should",
+        "may",
+        "might",
+        "shall",
+        "can",
+        "not",
+        "no",
+        "nor",
+        "with",
+        "from",
+        "by",
+        "as",
+        "if",
+        "then",
+        "than",
+        "when",
+        "where",
+        "which",
+        "who",
+        "also",
+        "just",
+        "about",
+        "i",
+    }
+)
 
 
-def extract_capitalized_ngrams(
-    text: str, max_n: int = 3
-) -> set[str]:
+def extract_capitalized_ngrams(text: str, max_n: int = 3) -> set[str]:
     """Extract contiguous runs of capitalised words (proxy for named entities).
 
     Captures sequences of Title-Case or ALL-CAPS tokens up to ``max_n``
@@ -82,9 +133,7 @@ def extract_capitalized_ngrams(
     while i < len(tokens):
         clean = re.sub(r"[^\w]", "", tokens[i])
         is_entity_token = (
-            clean
-            and capitalized.match(clean)
-            and clean.lower() not in _COMMON_WORDS
+            clean and capitalized.match(clean) and clean.lower() not in _COMMON_WORDS
         )
         if is_entity_token:
             # Extend the run as far as possible up to max_n
@@ -168,8 +217,6 @@ def count_language_switches(labeled_tokens: list[tuple[str, str]]) -> int:
     if len(labeled_tokens) < 2:
         return 0
     switches = sum(
-        1
-        for (_, l1), (_, l2) in zip(labeled_tokens, labeled_tokens[1:])
-        if l1 != l2
+        1 for (_, l1), (_, l2) in zip(labeled_tokens, labeled_tokens[1:]) if l1 != l2
     )
     return switches

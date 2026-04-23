@@ -2,7 +2,11 @@
 
 import pytest
 
-from naijaeval.metrics.fidelity import BLEUMetric, TerminologyPreservationMetric, chrFMetric
+from naijaeval.metrics.fidelity import (
+    BLEUMetric,
+    TerminologyPreservationMetric,
+    chrFMetric,
+)
 
 
 class TestTerminologyPreservationMetric:
@@ -84,8 +88,8 @@ class TestTerminologyPreservationMetric:
     def test_batch_mean_is_correct(self):
         preds = [
             "malaria and hypertension and tuberculosis",  # 3/3 = 1.0
-            "malaria only",                               # 1/3
-            "nothing",                                    # 0/3
+            "malaria only",  # 1/3
+            "nothing",  # 0/3
         ]
         result = self.metric.compute(preds, [])
         expected = (1.0 + 1 / 3 + 0.0) / 3

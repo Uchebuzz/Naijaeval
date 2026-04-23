@@ -119,6 +119,7 @@ class TestWERDeltaMetric:
 
     def test_delta_computed_correctly(self):
         import numpy as np
+
         std = [0.10, 0.20]
         dia = [0.30, 0.40]
         result = self.metric.from_scores(std, dia)

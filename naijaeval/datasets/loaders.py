@@ -46,8 +46,8 @@ def load_menyo20k(split: str = "test", **kwargs: Any):
     """
     try:
         from datasets import load_dataset
-    except ImportError:
-        raise ImportError("datasets is required: pip install datasets")
+    except ImportError as err:
+        raise ImportError("datasets is required: pip install datasets") from err
 
     ds = load_dataset("masakhane/menyo20k_mt", split=split)
 
@@ -80,8 +80,8 @@ def load_fleurs_yoruba(split: str = "test", **kwargs: Any):
     """
     try:
         from datasets import load_dataset
-    except ImportError:
-        raise ImportError("datasets is required: pip install datasets")
+    except ImportError as err:
+        raise ImportError("datasets is required: pip install datasets") from err
 
     return load_dataset("google/fleurs", "yo_ng", split=split, trust_remote_code=True)
 
@@ -91,8 +91,8 @@ def load_fleurs_hausa(split: str = "test", **kwargs: Any):
     """Load FLEURS Hausa split for ASR evaluation."""
     try:
         from datasets import load_dataset
-    except ImportError:
-        raise ImportError("datasets is required: pip install datasets")
+    except ImportError as err:
+        raise ImportError("datasets is required: pip install datasets") from err
 
     return load_dataset("google/fleurs", "ha_ng", split=split, trust_remote_code=True)
 
@@ -102,8 +102,8 @@ def load_fleurs_swahili(split: str = "test", **kwargs: Any):
     """Load FLEURS Swahili split for ASR evaluation."""
     try:
         from datasets import load_dataset
-    except ImportError:
-        raise ImportError("datasets is required: pip install datasets")
+    except ImportError as err:
+        raise ImportError("datasets is required: pip install datasets") from err
 
     return load_dataset("google/fleurs", "sw_ke", split=split, trust_remote_code=True)
 
@@ -126,7 +126,10 @@ def load_naija_mt_sample(split: str = "test", **kwargs: Any):
         {"source": "I am going to the market.", "target": "Mo n lo si oja."},
         {"source": "Please give me water.", "target": "E jo fun mi ni omi."},
         {"source": "The child is sick.", "target": "Omo naa je aisan."},
-        {"source": "We need to go to the hospital.", "target": "A nilo lati lo si ile iwosan."},
+        {
+            "source": "We need to go to the hospital.",
+            "target": "A nilo lati lo si ile iwosan.",
+        },
         {"source": "Thank you very much.", "target": "E se pupo."},
         {"source": "God bless you.", "target": "Olorun a bukun fun e."},
         {"source": "The food is ready.", "target": "Ounje ti pese."},
